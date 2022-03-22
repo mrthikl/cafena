@@ -5244,6 +5244,7 @@ License: For each use you must have a valid license purchased only from above li
 	<script src="{{asset('backend/js/custom/apps/chat/chat.js')}}"></script>
 	<script src="{{asset('backend/js/custom/modals/create-app.js')}}"></script>
 	<script src="{{asset('backend/js/custom/modals/upgrade-plan.js')}}"></script>
+	<script src="{{asset('backend/js/custom/custom.js')}}"></script>
 	<!--end::Page Custom Javascript-->
 	<!--end::Javascript-->
 </body>

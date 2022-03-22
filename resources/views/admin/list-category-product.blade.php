@@ -237,8 +237,11 @@
                                                 </span>
                                                 <!--end::Svg Icon-->
                                             </a>
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_card">
+                                            <a href="" id="update-category-btn" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_card">
                                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                                                <input id="id_category_product" type="hidden" value="{{$cate_pro->category_id}}">
+                                                <input id="id_category_name" type="hidden" value="{{$cate_pro->category_name}}">
+                                                <input id="id_category_desc" type="hidden" value="{{$cate_pro->category_desc}}">
                                                 <span class="svg-icon svg-icon-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                         <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="black" />
@@ -404,7 +407,7 @@
                 <!--begin::Modal body-->
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                     <!--begin::Form-->
-                    <form id="kt_modal_new_card_form" method="post" class="form" action="{{URL::to('/update-category-product/')}}">
+                    <form id="kt_modal_new_card_form" method="post" class="form" action="{{URL::to('/update-category-product')}}">
                         {{csrf_field()}}
                         <!--begin::Input group-->
                         <div class="d-flex flex-column mb-7 fv-row">
@@ -414,7 +417,7 @@
                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a card holder's name"></i>
                             </label>
                             <!--end::Label-->
-                            <input type="text" class="form-control form-control-solid" placeholder="Name" name="category_product_name" />
+                            <input id="update-form-name" type="text" class="form-control form-control-solid" placeholder="Name" name="category_product_name" />
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
@@ -425,7 +428,7 @@
                             <!--begin::Input wrapper-->
                             <div class="position-relative">
                                 <!--begin::Input-->
-                                <textarea type="text" cols="10" rows="5" placeholder="Description" class="form-control form-control-solid" placeholder="" name="category_product_desc"></textarea>
+                                <textarea id="update-form-desc" type="text" cols="10" rows="5" placeholder="Description" class="form-control form-control-solid" placeholder="" name="category_product_desc"></textarea>
                                 <!--end::Input-->
                             </div>
                             <!--end::Input wrapper-->
@@ -433,6 +436,7 @@
                         <!--end::Input group-->
                         <!--begin::Actions-->
                         <div class="text-center pt-15">
+                            <input type="hidden" id="update-form-id" name="category_product_id" value="">
                             <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">Discard</button>
                             <input type="submit" value="Update" id="kt_modal_new_card_submit" class="btn btn-primary">
                            

@@ -32,6 +32,14 @@ class CategoryProduct extends Controller
         DB::table('tbl_category')->where('category_id', $category_id)->delete();
         return Redirect::to('/list-category-product');
     }
+    public function update_category_product(Request $request) {
+        $category_product_id = $request->input('category_product_id');
+        $data = array();
+        $data['category_name'] = $request->category_product_name;
+        $data['category_desc'] = $request->category_product_desc;
+        DB::table('tbl_category')->where('category_id', $category_product_id)->update($data);
+        return Redirect::to('/list-category-product');
+    }
     public function active_category_product($category_id)
     {
         DB::table('tbl_category')->where('category_id', $category_id)->update(['category_status' => 1]);
