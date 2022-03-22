@@ -184,7 +184,7 @@
                                         </div>
                                     </th>
                                     <th class="min-w-150px">Name</th>
-                                    <th class="min-w-140px">Display</th>
+                                    <th class="min-w-140px text-center">Status</th>
                                     <th class="min-w-100px text-end">Actions</th>
                                 </tr>
                             </thead>
@@ -192,7 +192,6 @@
                             <!--begin::Table body-->
                             <?php
                             $list_category_products = DB::table('tbl_category')->get();
-
                             ?>
                             @foreach($list_category_products as $cate_pro)
                             <tbody>
@@ -211,12 +210,20 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" class="text-dark fw-bolder text-hover-primary d-block fs-6">
-                                            <?php
-                                            if ($cate_pro->category_status == 0) echo 'Show';
-                                            else echo 'Hide';
-                                            ?>
-                                        </a>
+
+                                        <?php
+                                        if ($cate_pro->category_status == 0) {
+                                        ?>
+                                            <a href="{{URL::to('/active-category-product',[$cate_pro->category_id])}}" class="text-dark text-center fw-bolder text-hover-primary d-block fs-6"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #16A2F9;transform: ;msFilter:;">
+                                                        <path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z"></path>
+                                                    </svg></span></a> ';
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a href="{{URL::to('/unactive-category-product',[$cate_pro->category_id])}}" class="text-dark text-center fw-bolder text-hover-primary d-block fs-6"><span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #F91616;transform: ;msFilter:;">
+                                                        <path d="M20 3h-1v13h1a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM4 16h7l-1.122 3.368A2 2 0 0 0 11.775 22H12l5-5.438V3H6l-3.937 8.649-.063.293V14a2 2 0 0 0 2 2z"></path>
+                                                    </svg></span></a>
+                                        <?php } ?>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-end flex-shrink-0">
@@ -331,7 +338,7 @@
                             <!--begin::Col-->
                             <div class="">
                                 <!--begin::Label-->
-                                <label class="required fs-6 fw-bold form-label mb-2">Display</label>
+                                <label class="required fs-6 fw-bold form-label mb-2">Status</label>
                                 <!--end::Label-->
                                 <!--begin::Row-->
                                 <div class="">

@@ -26,4 +26,13 @@ class CategoryProduct extends Controller
         Session::put('message', 'Add category successfully');
         return Redirect::to('/list-category-product');
     }
+    public function remove_category_product(Request $request) {}
+    public function active_category_product($category_id) {
+        DB::table('tbl_category')->where('category_id', $category_id)->update(['category_status'=> 1]);
+       return Redirect::to('/list-category-product');
+    }
+    public function unactive_category_product($category_id) {
+        DB::table('tbl_category')->where('category_id', $category_id)->update(['category_status'=> 0]);
+        return Redirect::to('/list-category-product');
+    }
 }
