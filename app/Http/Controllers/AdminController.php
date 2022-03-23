@@ -16,7 +16,11 @@ class AdminController extends Controller
     }
     public function show_dashboard()
     {
-        return view('admin.dashboard');
+        if (!Session::has('admin_email') && !Session::has('admin_name')) {
+            return redirect('admin');
+        } else {
+            return view('admin.dashboard');
+        }
     }
     public function login(Request $request)
     {
