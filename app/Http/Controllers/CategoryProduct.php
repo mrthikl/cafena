@@ -13,9 +13,7 @@ class CategoryProduct extends Controller
     public function list_category_product()
     {
         $list_category_products = DB::table('tbl_category')->get();
-        // $manager_category_product = view('admin.list-category-product')->width('list_category_product', $list_category_products);
-        // return view('admin_layout')->width('admin.list-category-product', $manager_category_product);
-        return view('admin.list-category-product', $list_category_products);
+        return view('admin.list-category-product', compact('list_category_products'));
     }
     public function add_category_product(Request $request)
     {
