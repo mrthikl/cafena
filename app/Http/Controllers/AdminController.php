@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 session_start();
+
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin-login');
+        if (!Session::has('admin_email') && !Session::has('admin_name')) {
+            return view('admin-login');
+        } else {
+            return Redirect::to('/dashboard');
+        }
     }
     public function show_dashboard()
     {
@@ -30,6 +35,7 @@ class AdminController extends Controller
             ->where('admin_email', $admin_email)
             ->where('admin_password', $admin_password)
             ->first();
+
         if ($result) {
             Session::put('admin_name', $result->admin_name);
             Session::put('admin_id', $result->admin_id);
