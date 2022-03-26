@@ -126,6 +126,16 @@ License: For each use you must have a valid license purchased only from above li
 									}
 									?>
 								</div>
+								<div class="fv-row mb-10">
+									<!--begin::Label-->
+										<!--end::Label-->
+									<!--begin::Input-->
+									<label class="d-flex align-items-center">
+										<input type="checkbox" class="orm-control form-control-lg form-control-solid" name="remember" style="margin-right: 10px"> <span class="text-bold d-inline-block">Remember me</span>
+									</label>
+
+									<!--end::Input-->
+								</div>
 							</div>
 
 							<!--end::Input group-->

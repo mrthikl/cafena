@@ -1,332 +1,432 @@
 (function ($) {
-    'use strict';
+    "use strict";
 
-    /*------------- preloader js --------------*/
-	function loader() {
-		$(window).on('load', function () {
-			$('#ctn-preloader').addClass('loaded');
-			$("#loading").fadeOut(500);
-			// Una vez haya terminado el preloader aparezca el scroll
 
-			if ($('#ctn-preloader').hasClass('loaded')) {
-				// Es para que una vez que se haya ido el preloader se elimine toda la seccion preloader
-				$('#preloader').delay(900).queue(function () {
-					$(this).remove();
-				});
-			}
+/*--
+    Menu Sticky
+-----------------------------------*/
+    var windows = $(window);
+    var sticky = $('.header-sticky');
+
+    windows.on('scroll', function() {
+        var scroll = windows.scrollTop();
+        if (scroll < 300) {
+            sticky.removeClass('is-sticky');
+        }else{
+            sticky.addClass('is-sticky');
+        }
+    });
+    
+/*--
+    Off Canvas
+-------------------------------------------*/
+    $(".off-canvas-btn").on('click', function () {
+        $("body").addClass('fix');
+        $(".off-canvas-wrapper").addClass('open');
+    });
+
+    $(".btn-close-off-canvas,.off-canvas-overlay").on('click', function () {
+        $("body").removeClass('fix');
+        $(".off-canvas-wrapper").removeClass('open');
+    });
+    
+    
+/*-- 
+    Countdown Activation 
+------------------------------------*/
+	$('[data-countdown]').each(function () {
+		var $this = $(this),
+			finalDate = $(this).data('countdown');
+		$this.countdown(finalDate, function (event) {
+			$this.html(event.strftime('<div class="single-countdown"><span class="single-countdown__time">%D</span><span class="single-countdown__text">Days</span></div><div class="single-countdown"><span class="single-countdown__time">%H</span><span class="single-countdown__text">Hours</span></div><div class="single-countdown"><span class="single-countdown__time">%M</span><span class="single-countdown__text">Mins</span></div><div class="single-countdown"><span class="single-countdown__time">%S</span><span class="single-countdown__text">Secs</span></div>'));
 		});
-	}
-	loader();
-
-	$(window).on("load", function () {
-		background();
 	});
+    
+    
+    
+    
+/*---
+ Category Menu Active
+---------------------------- */	
+    $(".categories_title").on("click", function() {
+        $(this).toggleClass('active');
+        $('.categories_menu_toggle').slideToggle('medium');
+    }); 
+ 
+    $('.categories-more-less').on('click', function(){
+        $('.hide-child').slideToggle();
+        $(this).toggleClass('rx-change');
+    });	
+    
+/* ---------------------
+ Category menu
+--------------------- */
+    function categorySubMenuToggle(){
+        $('.categories_menu_toggle li.menu_item_children > a').on('click', function(){
+        if($(window).width() < 991){
+            $(this).removeAttr('href');
+            var element = $(this).parent('li');
+            if (element.hasClass('open')) {
+                element.removeClass('open');
+                element.find('li').removeClass('open');
+                element.find('ul').slideUp();
+            }
+            else {
+                element.addClass('open');
+                element.children('ul').slideDown();
+                element.siblings('li').children('ul').slideUp();
+                element.siblings('li').removeClass('open');
+                element.siblings('li').find('li').removeClass('open');
+                element.siblings('li').find('ul').slideUp();
+            }
+        }
+        });
+        $('.categories_menu_toggle li.menu_item_children > a').append('<span class="expand"></span>');
+    }
+    categorySubMenuToggle();
+    
 
-	// scroll to top js
-	var scroll = $(".go-top");
-	scroll.on('click', function() {
-		$('html , body').animate({
-			scrollTop: 0
-		}, 300);
+/*-- 
+    Responsive Mobile Menu
+--------------------------------------------------*/
+//Variables
+	var $offCanvasNav = $('.mobile-menu'),
+		$offCanvasNavSubMenu = $offCanvasNav.find('.dropdown');
+
+	//Add Toggle Button With Off Canvas Sub Menu
+	$offCanvasNavSubMenu.parent().prepend('<span class="menu-expand"><i></i></span>');
+
+	//Close Off Canvas Sub Menu
+	$offCanvasNavSubMenu.slideUp();
+
+	//Category Sub Menu Toggle
+	$offCanvasNav.on('click', 'li a, li .menu-expand', function(e) {
+        var $this = $(this);
+        if ( ($this.parent().attr('class').match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/)) && ($this.attr('href') === '#' || $this.hasClass('menu-expand')) ) {
+            e.preventDefault();
+            if ($this.siblings('ul:visible').length){
+                $this.parent('li').removeClass('active');
+                $this.siblings('ul').slideUp();
+            } else {
+                $this.parent('li').addClass('active');
+                $this.closest('li').siblings('li').removeClass('active').find('li').removeClass('active');
+                $this.closest('li').siblings('li').find('ul:visible').slideUp();
+                $this.siblings('ul').slideDown();
+            }
+        }
+    });
+    
+/*--
+    Hero Slider
+--------------------------------------------*/
+
+var heroSlider = $('.hero-slider-one');
+heroSlider.slick({
+    arrows: true,
+    autoplay: false,
+    autoplaySpeed: 5000,
+    dots: false,
+    pauseOnFocus: false,
+    pauseOnHover: false,
+    fade: true,
+    infinite: true,
+    slidesToShow: 1,
+    prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"> </i></button>',
+    nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"> </i></button>',
+    responsive: [
+        {
+          breakpoint: 767,
+          settings: {
+            dots: false,
+          }
+        }
+    ]
+});
+
+    
+/*--
+    Product Slider
+--------------------------------------------*/
+var product_4 = $('.product-active-lg-4');
+product_4.slick({
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: false,
+    prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"> </i></button>',
+    nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"> </i></button>',
+    responsive: [
+        {
+            breakpoint: 1199,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+        {
+            breakpoint: 991,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 479,
+            settings: {
+                slidesToShow: 1,
+            }
+        }
+    ]
+});
+/*--
+    Product Slider
+--------------------------------------------*/
+var product_row_4 = $('.product-active-row-4');
+product_row_4.slick({
+    dots: false,
+    infinite: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    rows: 2,
+    autoplay: false,
+    prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"> </i></button>',
+    nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"> </i></button>',
+    responsive: [
+        {
+            breakpoint: 1199,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+        {
+            breakpoint: 991,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 479,
+            settings: {
+                slidesToShow: 1,
+            }
+        }
+    ]
+});  
+    
+    
+/*-- 
+    brand Active Two 
+-----------------------------*/
+var brandActive = $('.our-brand-active');
+brandActive.slick({
+    dots: false,
+    infinite: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: false,
+    prevArrow: false,
+    nextArrow: false,
+    responsive: [
+        {
+            breakpoint: 991,
+            settings: {
+                slidesToShow: 4,
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 1,
+            }
+        },
+        {
+            breakpoint: 479,
+            settings: {
+                slidesToShow: 1,
+            }
+        }
+    ]
+});
+/*-- 
+    Testimonial Two Slider 
+-----------------------------*/
+var testimonialSliderTwo = $('.testimonial-two');
+testimonialSliderTwo.slick({
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 7000,
+    dots: false,
+    pauseOnFocus: false,
+    pauseOnHover: false,
+    infinite: true,
+    slidesToShow: 2,
+    slidesToScoll: 1,
+    prevArrow: false,
+    nextArrow: false,
+});
+
+ /* Product Detals Color */
+$('.watch-color li').on('click', function () {
+    $(this).addClass('checked').siblings().removeClass('checked');
+});
+
+/*---------------------------
+	Count Down Timer
+----------------------------*/
+$('[data-countdown]').each(function() {
+	var $this = $(this), finalDate = $(this).data('countdown');
+	$this.countdown(finalDate, function(event) {
+		$this.html(event.strftime('<span class="cdown day"><span class="time-count">%-D</span> <p>Days</p></span> <span class="cdown hour"><span class="time-count">%-H</span> <p>Hours</p></span> <span class="cdown minutes"><span class="time-count">%M</span> <p>mins</p></span> <span class="cdown second"><span class="time-count">%S</span> <p>secs</p></span>'));
 	});
-
-    // background image js
-	function background() {
-			var img=$('.bg_img');
-			img.css('background-image', function () {
-			var bg = ('url(' + $(this).data('background') + ')');
-			return bg;
-		});
-	}
-
-	// active mobile-menu
-	jQuery('#mobile-menu').meanmenu({
-		meanScreenWidth: '991',
-		meanMenuContainer: '.mobile-menu'
-	});
-
-	// toggle search bar
-	$('.search .search__trigger .open').click(function () {
-		$(".search .search__trigger .open").hide();
-		$(".search .search__trigger .close").show();
-		$('.search__form').addClass('active');
-	});
-	$('.search .search__trigger .close').click(function () {
-		$(".search .search__trigger .open").show();
-		$(".search .search__trigger .close").hide();
-		$('.search__form').removeClass('active');
-	});
-
-	// Side menu info
-	$(".hamburger-trigger").on("click", function (e) {
-		e.preventDefault();
-		$(".side-info-wrapper").toggleClass("show");
-		$("body").addClass("on-side");
-		$('.overlay').addClass('active');
-		$(this).addClass('active');
-	});
-
-	$(".side-info__close > a").on("click", function (e) {
-		e.preventDefault();
-		$(".side-info-wrapper").removeClass("show");
-		$("body").removeClass("on-side");
-		$('.overlay').removeClass('active');
-		$('.hamburger-trigger').removeClass('active');
-	});
-
-	$('.overlay').on('click', function () {
-		$(this).removeClass('active');
-		$(".side-info-wrapper").removeClass("show");
-		$("body").removeClass("on-side");
-		$('.hamburger-trigger').removeClass('active');
-	});
-
-	// cart info
-	$(".cart-trigger").on("click", function (e) {
-		e.preventDefault();
-		$(".cart-bar-wrapper").toggleClass("show");
-		$("body").addClass("on-side");
-		$('.overlay').addClass('active');
-		$(this).addClass('active');
-	});
-
-	$(".cart-bar__close > a").on("click", function (e) {
-		e.preventDefault();
-		$(".cart-bar-wrapper").removeClass("show");
-		$("body").removeClass("on-side");
-		$('.overlay').removeClass('active');
-		$('.cart-trigger').removeClass('active');
-	});
-
-	$('.overlay').on('click', function () {
-		$(this).removeClass('active');
-		$(".cart-bar-wrapper").removeClass("show");
-		$("body").removeClass("on-side");
-		$('.cart-trigger').removeClass('active');
-	});
-
-	// feature slider
-	var owl = $('.feature__slider');
-	owl.owlCarousel({
-		loop: true,
-		margin: 30,
-		loop: true,
-		slideSpeed: 3000,
-		nav: true,
-		dots: false,
-		navText: ["<i class='fa fa-long-arrow-left'></i>", "<i class='fa fa-long-arrow-right'></i>"],
-		responsiveClass:true,
-		responsive: {
-			0: {
-				items: 1,
-				margin: 0
-			},
-			768: {
-				items: 3
-			},
-			992: {
-				items: 3
-			},
-			1440: {
-				items: 4
-			}
-		}
-	});
-
-	// testemonial slider
-	var owl = $('.testimonial__active');
-	owl.owlCarousel({
-		items: 1,
-		loop: true,
-		margin: 30,
-		loop: true,
-		slideSpeed: 3000,
-		nav: true,
-		dots: false,
-		navText: ["<i class='fa fa-long-arrow-left'></i>", "<i class='fa fa-long-arrow-right'></i>"],
-		responsiveClass:true,
-	});
-
-	//  product popup
-	$('.view').on('click',function() {
-		$('.overlay, .product-popup-1').addClass('show-popup');
-	});
-
-	$('.product-highlight__trigger').on('click',function() {
-		$('.overlay, .popup-coffe-mechine').addClass('show-popup');
-	});
-
-	$('.overlay,.product-p-close').on('click',function() {
-		$('.overlay, .popup-coffe-mechine, .product-popup').removeClass('show-popup');
-	});
-
-	// Activate lightcase
-	$('a[data-rel^=lightcase]').lightcase();
-
-	// isotop active
-	$('.popular-menu__grid').imagesLoaded(function () {
-		// init Isotope
-		var $grid = $('.popular-menu__grid').isotope({
-			itemSelector: '.grid-item',
-			percentPosition: true,
-			masonry: {
-				columnWidth: '.grid-sizer'
-			}
-		});
-
-		// filter items on button click
-		$('.popular-menu__filter').on('click', 'button', function () {
-			var filterValue = $(this).attr('data-filter');
-			$grid.isotope({ filter: filterValue });
-		});
-
-	});
-
-	// isotop masonary active
-	$('.popular-menu__masonary').imagesLoaded(function () {
-		// init Isotope
-		var $grid = $('.popular-menu__masonary').isotope({
-			itemSelector: '.popular-menu__item',
-			percentPosition: true,
-			masonry: {
-				columnWidth: '.popular-menu__item',
-				horizontalOrder: true,
-			}
-		});
-
-		// filter items on button click
-		$('.popular-menu__filter').on('click', 'button', function () {
-			var filterValue = $(this).attr('data-filter');
-			$grid.isotope({ filter: filterValue });
-		});
-
-	});
-
-	//for menu active class
-	$('.popular-menu__filter button').on('click', function (event) {
-		$(this).siblings('.active').removeClass('active');
-		$(this).addClass('active');
-		event.preventDefault();
-	});
-
-	$('.pp__item').on('mouseenter', function () {
-		$(this).addClass('active').parent().siblings().find('.pp__item').removeClass('active');
-	});
-
-	// range slider activation
-	$("#slider-range").slider({
-		range: true,
-		min: 0,
-		max: 10000,
-		values: [0, 10000],
-		slide: function (event, ui) {
-			$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-		}
-	});
-
-	$("#amount").val("$" + $("#slider-range").slider("values", 0) +
-	" - $" + $("#slider-range").slider("values", 1));
-
-	// map active
-	function basicmap() {
-		// Basic options for a simple Google Map
-		// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-		var mapOptions = {
-			// How zoomed in you want the map to start at (always required)
-			zoom: 15,
-			scrollwheel: false,
-			center: new google.maps.LatLng(40.74393298737726, -73.967833),
-			styles: [{
-				"stylers": [{
-					"color": "#13131A"
-				}]
-			}, {
-				"featureType": "water",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "on",
-					"color": "#fff"
-				}]
-			}, {
-			}, {
-				"featureType": "poi.business",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "on",
-					"color": "#f1f1f1"
-				}]
-			}, {
-				"featureType": "road",
-				"elementType": "geometry",
-				"stylers": [{
-					"lightness": 100,
-					"color": "#fff"
-				}, {
-					"visibility": "simplified"
-				}]
-			}]
-		};
-		// We are using a div with id="map" seen below in the <body>
-		var mapElement = document.getElementById('reservemap');
-
-		// Create the Google Map using our element and options defined above
-		var map = new google.maps.Map(mapElement, mapOptions);
+}); 
+        
+    
+/*----------
+    price-slider active
+-------------------------------*/  
+$( "#price-slider" ).slider({
+   range: true,
+   min: 0,
+   max: 120,
+   values: [ 20, 115 ],
+   slide: function( event, ui ) {
+        $( "#min-price" ).val('$' + ui.values[ 0 ] );
+        $( "#max-price" ).val('$' + ui.values[ 1 ] );
+     }
+  });
+  $( "#min-price" ).val('$' + $( "#price-slider" ).slider( "values", 0 ));   
+  $( "#max-price" ).val('$' + $( "#price-slider" ).slider( "values", 1 )); 
+   
+/*--
+    Category menu Activation
+------------------------------*/
+    $('.category-sub-menu li.has-sub > a').on('click', function () {
+        $(this).removeAttr('href');
+        var element = $(this).parent('li');
+        if (element.hasClass('open')) {
+            element.removeClass('open');
+            element.find('li').removeClass('open');
+            element.find('ul').slideUp();
+        } else {
+            element.addClass('open');
+            element.children('ul').slideDown();
+            element.siblings('li').children('ul').slideUp();
+            element.siblings('li').removeClass('open');
+            element.siblings('li').find('li').removeClass('open');
+            element.siblings('li').find('ul').slideUp();
+        }
+    }); 
+    
+// prodct details slider active
+$('.product-large-slider').slick({
+    fade: true,
+    arrows: false,
+    asNavFor: '.product-nav'
+});
 
 
-	}
-	if ($('#reservemap').length != 0) {
-		google.maps.event.addDomListener(window, 'load', basicmap);
-	}
+// product details slider nav active
+$('.product-nav').slick({
+    slidesToShow: 4,
+    asNavFor: '.product-large-slider',
+    centerMode: true,
+    centerPadding: 0,
+    focusOnSelect: true,
+    prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
+    nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+    responsive: [{
+        breakpoint: 576,
+        settings: {
+            slidesToShow: 3,
+        }
+    }]
+});
 
-	// map active
-	function contactcmap() {
-		// Basic options for a simple Google Map
-		// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-		var mapOptions = {
-			// How zoomed in you want the map to start at (always required)
-			zoom: 15,
-			scrollwheel: false,
-			center: new google.maps.LatLng(40.74393298737726, -73.967833),
-			styles: [{
-				"stylers": [{
-					"color": "#CDCDCD"
-				}]
-			}, {
-				"featureType": "water",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "on",
-					"color": "#000000"
-				}]
-			}, {
-			}, {
-				"featureType": "poi.business",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "on",
-					"color": "#000000"
-				}]
-			}, {
-				"featureType": "road",
-				"elementType": "geometry",
-				"stylers": [{
-					"lightness": 100,
-					"color": "#000000"
-				}, {
-					"visibility": "simplified"
-				}]
-			}]
-		};
-		// We are using a div with id="map" seen below in the <body>
-		var mapElement = document.getElementById('contactmap');
+    
+// ScrollUp Active
+$('.nice-select').niceSelect ();
 
-		// Create the Google Map using our element and options defined above
-		var map = new google.maps.Map(mapElement, mapOptions);
+// Image zoom effect
+$('.img-zoom').zoom();
+    
+// Fancybox Active   
+$('[data-fancybox="images"]').fancybox({
+    hash: false,
+});
+    
 
-
-	}
-	if ($('#contactmap').length != 0) {
-		google.maps.event.addDomListener(window, 'load', contactcmap);
-	}
-
+/*--
+    showlogin toggle function
+--------------------------*/
+$( '#showlogin' ).on('click', function() {
+    $('#checkout-login' ).slideToggle(500);
+}); 
+    
+/*--
+    showcoupon toggle function
+--------------------------*/
+$( '#showcoupon' ).on('click', function() {
+    $('#checkout-coupon' ).slideToggle(500);
+});
+    
+/*--
+    Checkout 
+--------------------------*/
+$("#chekout-box").on("change",function(){
+    $(".account-create").slideToggle("100");
+});
+    
+/*-- 
+    Checkout 
+---------------------------*/
+$("#chekout-box-2").on("change",function(){
+    $(".ship-box-info").slideToggle("100");
+});        
+    
+     
+/*--
+    ScrollUp Active
+-----------------------------------*/
+$.scrollUp({
+    scrollText: '<i class="fa fa-angle-up"></i>',
+    easingType: 'linear',
+    scrollSpeed: 900,
+    animation: 'fade'
+});    
+    
+    
+    
+    
+    
+    
 })(jQuery);
+

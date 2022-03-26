@@ -17,8 +17,9 @@ return new class extends Migration
             $table->increments('admin_id');
             $table->string('admin_name', 100);
             $table->string('admin_password');
-            $table->string('admin_email');
+            $table->string('admin_email')->unique();
             $table->string('admin_phone', 11)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

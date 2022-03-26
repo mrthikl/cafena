@@ -11,21 +11,23 @@ session_start();
 
 class AdminController extends Controller
 {
+    public function authAdmin()
+    {
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return Redirect::to('dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
     public function index()
     {
-        if (!Session::has('admin_email') && !Session::has('admin_name')) {
-            return view('admin-login');
-        } else {
-            return Redirect::to('/dashboard');
-        }
+        return view('admin-login');
     }
     public function show_dashboard()
     {
-        if (!Session::has('admin_email') && !Session::has('admin_name')) {
-            return redirect('admin');
-        } else {
-            return view('admin.dashboard');
-        }
+        $this->authAdmin();
+        return view('admin.dashboard');
     }
     public function login(Request $request)
     {
