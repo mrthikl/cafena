@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_admin', function (Blueprint $table) {
-            $table->increments('admin_id');
-            $table->string('admin_name', 100);
-            $table->string('admin_password');
-            $table->string('admin_email')->unique();
-            $table->string('admin_phone', 11)->nullable();
-            $table->rememberToken();
+        Schema::create('brands', function (Blueprint $table) {
+            $table->increments('brand_id');
+            $table->string('brand_name');
+            $table->text('brand_desc')->nullable();
+            $table->integer('brand_status')->default(0); 
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_admin');
+        Schema::dropIfExists('brands');
     }
 };

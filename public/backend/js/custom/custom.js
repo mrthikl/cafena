@@ -21,26 +21,26 @@ updatebtn.forEach((e) => {
         updateDesc.innerText = descCategoryProduct
 
         if (checkSectionProduct) {
-            const nameCategoryProduct = e.querySelector('#category_product').getAttribute('value');
-            const nameBrandProduct = e.querySelector('#brand_product').getAttribute('value');
-            const priceCategoryProduct = e.querySelector('#price_product').getAttribute('value');
-            const imageCategoryProduct = e.querySelector('#image_product').getAttribute('value');
-            const contentCategoryProduct = e.querySelector('#content_product').getAttribute('value');
+            const CategoryProduct = e.querySelector('#category_product').getAttribute('value');
+            const BrandProduct = e.querySelector('#brand_product').getAttribute('value');
+            const priceProduct = e.querySelector('#price_product').getAttribute('value');
+            const imageProduct = e.querySelector('#image_product').getAttribute('value');
+            const contentProduct = e.querySelector('#content_product').getAttribute('value');
+            console.log(priceProduct);
             updateCategory.forEach(function(cate) {
-                if (cate.innerText.trim() == nameCategoryProduct) {
+                if (cate.innerText.trim() == CategoryProduct) {
                     cate.selected = 'selected'
                 }
             })
             updateBrand.forEach(function(brand) {
-                    if (brand.innerText.trim() == nameBrandProduct) {
+                    if (brand.innerText.trim() == BrandProduct) {
                         brand.selected = 'selected'
                     }
                 })
                 // {{url('uploads/product/'.$pro->product_image)}} /uploads/product/blog-post-167.jpeg
-            console.log(imageCategoryProduct);
-            updatePrice.setAttribute('value', priceCategoryProduct)
-            updateContent.setAttribute('value', contentCategoryProduct)
-            updateImage.setAttribute('src', "/uploads/product/" + imageCategoryProduct)
+            updatePrice.setAttribute('value', priceProduct)
+            updateContent.setAttribute('value', contentProduct)
+            updateImage.setAttribute('src', "/uploads/product/" + imageProduct)
         }
     })
 })

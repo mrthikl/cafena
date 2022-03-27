@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryProduct;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -29,26 +29,26 @@ Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
 Route::post('/login', [AdminController::class, 'login']);
 Route::get('/logout', [AdminController::class, 'logout']);
 
-// Category Product 
-Route::get('/list-category-product', [CategoryProduct::class, 'list_category_product']);
-Route::get('/delete-category-product/{category_id}', [CategoryProduct::class, 'delete_category_product']);
-Route::post('/add-category-product', [CategoryProduct::class, 'add_category_product']);
-Route::post('/update-category-product', [CategoryProduct::class, 'update_category_product']);
+// Category 
+Route::get('/list-categories', [CategoryController::class, 'list_categories']);
+Route::get('/delete-category/{category_id}', [CategoryController::class, 'delete_category']);
+Route::post('/add-category', [CategoryController::class, 'add_category']);
+Route::post('/update-category', [CategoryController::class, 'update_category']);
 
-Route::get('/active-category-product/{category_id}', [CategoryProduct::class, 'active_category_product']);
-Route::get('/unactive-category-product/{category_id}', [CategoryProduct::class, 'unactive_category_product']);
+Route::get('/active-category/{category_id}', [CategoryController::class, 'active_category']);
+Route::get('/unactive-category/{category_id}', [CategoryController::class, 'unactive_category']);
 
 // Brand Product
-Route::get('/list-brand-product', [BrandProduct::class, 'list_brand_product']);
-Route::get('/delete-brand-product/{brand_id}', [BrandProduct::class, 'delete_brand_product']);
-Route::post('/add-brand-product', [BrandProduct::class, 'add_brand_product']);
-Route::post('/update-brand-product', [BrandProduct::class, 'update_brand_product']);
+Route::get('/list-brands', [BrandProduct::class, 'list_brands']);
+Route::get('/delete-brand/{brand_id}', [BrandProduct::class, 'delete_brand']);
+Route::post('/add-brand', [BrandProduct::class, 'add_brand']);
+Route::post('/update-brand', [BrandProduct::class, 'update_brand']);
 
-Route::get('/active-brand-product/{brand_id}', [BrandProduct::class, 'active_brand_product']);
-Route::get('/unactive-brand-product/{brand_id}', [BrandProduct::class, 'unactive_brand_product']);
+Route::get('/active-brand/{brand_id}', [BrandProduct::class, 'active_brand']);
+Route::get('/unactive-brand/{brand_id}', [BrandProduct::class, 'unactive_brand']);
 
 // Product
-Route::get('/list-product', [ProductController::class, 'list_product']);
+Route::get('/list-products', [ProductController::class, 'list_products']);
 Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);
 Route::post('/add-product', [ProductController::class, 'add_product']);
 Route::post('/update-product', [ProductController::class, 'update_product']);

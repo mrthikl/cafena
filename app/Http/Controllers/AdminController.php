@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use DB;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -13,8 +14,8 @@ class AdminController extends Controller
 {
     public function authAdmin()
     {
-        $admin_id = Session::get('admin_id');
-        if ($admin_id) {
+        $user_id = Session::get('user_id');
+        if ($user_id) {
             return Redirect::to('dashboard');
         } else {
             return Redirect::to('admin')->send();
@@ -31,16 +32,16 @@ class AdminController extends Controller
     }
     public function login(Request $request)
     {
-        $admin_email = $request->admin_email;
-        $admin_password = md5($request->admin_password);
-        $result = DB::table('tbl_admin')
-            ->where('admin_email', $admin_email)
-            ->where('admin_password', $admin_password)
+        $user_email = $request->user_email;
+        $user_password = Hash::check('user_password', $request->user_password);
+        $result = User::where('user_email', $user_email)
+            ->where('user_password', $user_password)
+            ->where('is_admin', '=', '1')
             ->first();
 
         if ($result) {
-            Session::put('admin_name', $result->admin_name);
-            Session::put('admin_id', $result->admin_id);
+            Session::put('user_name', $result->user_name);
+            Session::put('user_id', $result->user_id);
             return Redirect::to('/dashboard');
         } else {
             Session::put('message', 'incorrect email or password');
@@ -51,8 +52,8 @@ class AdminController extends Controller
 
     public function logout(Request $request)
     {
-        Session::put('admin_name', null);
-        Session::put('admin_id', null);
+        Session::put('user_name', null);
+        Session::put('user_id', null);
         return Redirect::to('/admin');
     }
 }

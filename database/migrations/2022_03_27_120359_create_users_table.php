@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('user_email')->unique();
             $table->string('user_phone', 11)->nullable();
             $table->string('user_address')->nullable();
+            $table->integer('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
