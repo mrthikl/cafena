@@ -262,10 +262,10 @@
     <?php
         $title = 'category';
     ?>
-    <x-add-modal title={{$title}}></x-add-modal>
+     <x-admin.add-modal title={{$title}}></x-admin.add-modal>
     <!--end::Modal - New Category-->
     <!--begin::Modal - New Category-->
-    <x-update-modal title={{$title}}></x-update-modal>
+    <x-admin.update-modal title={{$title}}></x-admin.update-modal>
     <!--end::Modal - New Category-->
 </div>
 <!--end::Content-->

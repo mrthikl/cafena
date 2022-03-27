@@ -39,7 +39,7 @@
                     </div>
                     <!--end::Input group-->
                     {{ $slot }}
-                    {{ $add_product ?? '' }}
+                    {{ $add_product ?? 'undefined slot' }}
                     <!--begin::Input group-->
                     <div class="d-flex flex-column mb-7 fv-row">
                         <!--begin::Label-->

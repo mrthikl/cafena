@@ -78,7 +78,7 @@ License: For each use you must have a valid license purchased only from above li
 				</div>
 				<!--end::Brand-->
 				<!--begin::Aside menu-->
-				<x-sidebar-left title="category"></x-sidebar-left>
+				<x-admin.sidebar-left title="category"></x-admin.sidebar-left>
 				<!--end::Aside menu-->
 				<!--begin::Footer-->
 				<div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">

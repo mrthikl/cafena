@@ -68,10 +68,8 @@
                                 <div>
                                     <select class="form-select form-select-solid" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#kt_menu_6168393d79e01" data-allow-clear="true">
                                         <option></option>
-                                        <option value="1">Approved</option>
-                                        <option value="2">Pending</option>
-                                        <option value="2">In Process</option>
-                                        <option value="2">Rejected</option>
+                                        <option value="1">Name</option>
+                                        <option value="2">Status</option>
                                     </select>
                                 </div>
                                 <!--end::Input-->
@@ -262,10 +260,10 @@
     <?php
     $title = 'brand';
     ?>
-    <x-add-modal title={{$title}}></x-add-modal>
+    <x-admin.add-modal title={{$title}}></x-admin.add-modal>
     <!--end::Modal - New Category-->
     <!--begin::Modal - New Category-->
-    <x-update-modal title={{$title}}></x-update-modal>
+    <x-admin.update-modal title={{$title}}></x-admin.update-modal>
     <!--end::Modal - New Category-->
 </div>
 <!--end::Content-->

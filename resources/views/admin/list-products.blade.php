@@ -305,7 +305,7 @@
     <?php
     $title = 'product';
     ?>
-    <x-add-modal title={{$title}}>
+    <x-admin.add-modal title={{$title}}>
         <x-slot name="add_product">
             <!--begin::Input group-->
             <div class="d-flex flex-column mb-7 fv-row">
@@ -338,7 +338,6 @@
                 </label>
                 <!--end::Label-->
                 <input type="file" class="form-control form-control-solid" name="product_image" />
-                <img  width="80" height="80" src="" alt="">
             </div>
             <!--end::Input group-->
             <!--begin::Input group-->
@@ -392,11 +391,11 @@
             </div>
             <!--end::Input group-->
         </x-slot>
-    </x-add-modal>
+    </x-admin.add-modal>
 
     <!--end::Modal - New Category-->
     <!--begin::Modal - New Category-->
-    <x-update-modal title={{$title}}>
+    <x-admin.update-modal title={{$title}}>
         <x-slot name="update_product">
             <!--begin::Input group-->
             <div class="d-flex flex-column mb-7 fv-row">
@@ -483,7 +482,7 @@
             </div>
             <!--end::Input group-->
         </x-slot>
-    </x-update-modal>
+    </x-admin.update-modal>
     <!--end::Modal - New Category-->
 </div>
 <!--end::Content-->
